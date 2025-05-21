@@ -1,5 +1,4 @@
-export const drawLetters = () => {
-  // Implement this method for wave 1
+const buildLetterPool = () => {
   const letterPool = {
     'A': 9, 
     'B': 2, 
@@ -28,25 +27,30 @@ export const drawLetters = () => {
     'Y': 2, 
     'Z': 1
   };
-  
-  const totalLetterPool = [];
-  
+
+  const letterPoolArr = [];
+
   for (const [letter, qty] of Object.entries(letterPool)){
     for (let i = 0; i < qty; i++){
-      totalLetterPool.push(letter);
+      letterPoolArr.push(letter);
     }
   }
+  return letterPoolArr
+}
+
+export const drawLetters = () => {
+  const letterPoolArr = buildLetterPool()
 
   const handSize = 10;
   const hand = []
 
   for (let i = 0; i < handSize ; i++){
-    const randomIndex = Math.floor(Math.random() * totalLetterPool.length);
-    const lastPos = totalLetterPool.length - 1;
+    const randomIndex = Math.floor(Math.random() * letterPoolArr.length);
+    const lastPos = letterPoolArr.length - 1;
 
-    [totalLetterPool[lastPos], totalLetterPool[randomIndex]] = [totalLetterPool[randomIndex], totalLetterPool[lastPos]];
+    [letterPoolArr[lastPos], letterPoolArr[randomIndex]] = [letterPoolArr[randomIndex], letterPoolArr[lastPos]];
 
-    hand.push(totalLetterPool.pop());
+    hand.push(letterPoolArr.pop());
   }
   return hand;
 };
