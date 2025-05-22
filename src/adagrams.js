@@ -56,18 +56,16 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  let letterCounts = {};
-  for (let letter of lettersInHand){
-      if (letterCounts[letter]){
-        letterCounts[letter] += 1;
-      } else {
-        letterCounts[letter] = 1
-      }
+  let handMap = {};
+  
+  for (const letter of lettersInHand) {
+    handMap[letter] = (handMap[letter] || 0) + 1;
   }
 
-  for (let char of input) {
-    if (!letterCounts[char]) return false
-    letterCounts[char] -= 1
+  for (const char of input) {
+    const upperChar = char.toUpperCase();
+    if (!handMap[upperChar]) return false;
+    handMap[upperChar] -= 1;
   }
 
   return true
