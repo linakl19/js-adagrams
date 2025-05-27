@@ -207,7 +207,15 @@ export const scoreWord = (word) => {
   return totalPoints
 };
 
-
+const breakTie = (word, winnerWord) => {
+  if (word.length === 10 && winnerWord.length !== 10) {
+    return word;
+  } else if (word.length < winnerWord.length && winnerWord.length !== 10) {
+    return word;
+  } else {
+    return winnerWord
+  }
+}
 
 export const highestScoreFrom = (words) => {
   let winnerWord = '';
