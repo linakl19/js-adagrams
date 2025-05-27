@@ -207,3 +207,29 @@ export const scoreWord = (word) => {
   return totalPoints
 };
 
+
+
+export const highestScoreFrom = (words) => {
+  let winnerWord = '';
+  let winnerScore = 0;
+
+  for (const word of words){
+    const wordScore = scoreWord(word);
+
+    if (wordScore > winnerScore) {
+      winnerWord = word;
+      winnerScore = wordScore;
+    } else if (wordScore === winnerScore) {
+      const chosenWord = breakTie(word, winnerWord);
+      if (chosenWord != winnerWord) {
+        winnerWord = word;
+        winnerScore = wordScore;
+      }
+    }
+  }
+
+  return {
+    word: winnerWord,
+    score: winnerScore,
+  }
+}; 
