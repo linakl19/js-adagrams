@@ -190,9 +190,20 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
+  let totalPoints = 0;
+  if (!word) return totalPoints;
 
+  const upperWord = word.toUpperCase();
+
+  for (const char of upperWord){
+    totalPoints += LETTER_POOL[char]?.points || 0;
+  }
+
+  const bonusPointsForLength = 8;
+  if (upperWord.length >= 7) {
+    totalPoints += bonusPointsForLength;
+  }
+
+  return totalPoints
 };
 
-export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
-}; 
