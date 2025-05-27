@@ -208,17 +208,17 @@ export const scoreWord = (word) => {
 };
 
 const breakTie = (word, winnerWord) => {
-  if (word.length === 10 && winnerWord.length !== 10) {
-    return word;
-  } else if (word.length < winnerWord.length && winnerWord.length !== 10) {
-    return word;
-  } else {
-    return winnerWord
-  }
-}
+  const winnerUsedAllLetters = winnerWord.length === 10;
+  const wordUsedAllLetters = word.length === 10;
+
+  if (wordUsedAllLetters && !winnerUsedAllLetters) return word;
+  if (!wordUsedAllLetters && !winnerUsedAllLetters && word.length < winnerWord.length) return word;
+
+  return winnerWord;
+};
 
 export const highestScoreFrom = (words) => {
-  let winnerWord = '';
+  let winnerWord = null;
   let winnerScore = 0;
 
   for (const word of words){
@@ -227,9 +227,10 @@ export const highestScoreFrom = (words) => {
     if (wordScore > winnerScore) {
       winnerWord = word;
       winnerScore = wordScore;
-    } else if (wordScore === winnerScore) {
+    } 
+    else if (wordScore === winnerScore) {
       const chosenWord = breakTie(word, winnerWord);
-      if (chosenWord != winnerWord) {
+      if (chosenWord !== winnerWord) {
         winnerWord = word;
         winnerScore = wordScore;
       }
@@ -239,5 +240,5 @@ export const highestScoreFrom = (words) => {
   return {
     word: winnerWord,
     score: winnerScore,
-  }
+  };
 }; 
